@@ -34,7 +34,7 @@
           if (!touching) return;
           touching = false;
           if (moveDistance < threshold) {
-            callback.call(self);
+            callback.call(self, [].slice.call(arguments));
           } else {
             $self.trigger('tap-failed');
           }
