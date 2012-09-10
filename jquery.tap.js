@@ -1,8 +1,7 @@
-$.fn.tap =  (function() {
+;(function($, undefined) {
   var incrementalElementId = 0;
   var mutex = 0;
-
-  return function(threshold, callback) {
+  $.fn.tap = function(threshold, callback) {
     if (typeof threshold === 'function') {
       callback = threshold;
       threshold = 15;
@@ -17,8 +16,6 @@ $.fn.tap =  (function() {
         var self = this;
         var $self = $(this);
 
-        $self.data('hearing-taps', true);
-
         $self.bind('touchstart', function(e) {
           if (mutex != 0) return;
           else mutex = elementId;
@@ -28,9 +25,10 @@ $.fn.tap =  (function() {
 
           if (e.originalEvent.touches && e.originalEvent.touches[0]) {
             touch = e.originalEvent.touches[0];
-            startPoint = { x: touch.screenX, y: touch.screenY}
+            startPoint = { x: touch.screenX, y: touch.screenY }
           }
         });
+
         $self.bind('touchend', function() {
           if (mutex == elementId) mutex = 0;
           if (!touching) return;
@@ -40,7 +38,8 @@ $.fn.tap =  (function() {
           } else {
             $self.trigger('tap-failed');
           }
-        })
+        });
+
         $self.bind('touchmove', function(e) {
           if (!touching) return;
           if (e.originalEvent.touches.length == 0 || startPoint === null) {
@@ -56,7 +55,8 @@ $.fn.tap =  (function() {
             $self.trigger('exceed-tap-threshold');
             touching = false;
           }
-        })
+        });
+
         $self.bind('touchcancel', function() {
           if (mutex == elementId) mutex = 0;
           touching = false;
@@ -68,4 +68,4 @@ $.fn.tap =  (function() {
     }
     return this;
   }
-})()
+})(jQuery);
