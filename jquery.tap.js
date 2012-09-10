@@ -29,12 +29,12 @@
           }
         });
 
-        $self.bind('touchend', function() {
+        $self.bind('touchend', function(e) {
           if (mutex == elementId) mutex = 0;
           if (!touching) return;
           touching = false;
           if (moveDistance < threshold) {
-            callback.call(self, [].slice.call(arguments));
+            callback.apply(self, [].slice.call(arguments));
           } else {
             $self.trigger('tap-failed');
           }
