@@ -1,0 +1,17 @@
+{
+  "name": "jquery.tap",
+  "version": "1.0.0",
+  "description": "jquery.tap is a tap listener for jquery. Rather than waiting for the slow `click` listener to trigger on touch devices, it listens to touch events and triggers immediately after the touch finishes. The click event usually takes a few hundred milliseconds after this before triggering, which is a noticable delay.",
+  "main": "jquery.tap.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jonpacker/jquery.tap.git"
+  },
+  "author": "Jon Packer",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "30eb8ae42171c99eeb6ac98c99315d5c2b389763"
+}
