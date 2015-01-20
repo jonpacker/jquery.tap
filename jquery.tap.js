@@ -1,7 +1,7 @@
 ;(function($, undefined) {
   var incrementalElementId = 0;
   var mutex = 0;
-  $.fn.tap = function(threshold, callback) {
+  $.fn.tap = function(threshold, callback, touchOnly) {
     if (typeof threshold === 'function') {
       callback = threshold;
       threshold = 15;
@@ -63,7 +63,7 @@
           $self.trigger('tap-failed');
         })
       })
-    } else {
+    } else if (!touchOnly) {
       this.click(callback);
     }
     return this;
