@@ -3,6 +3,7 @@
   var mutex = 0;
   $.fn.tap = function(threshold, callback, touchOnly) {
     if (typeof threshold === 'function') {
+      touchOnly = callback;
       callback = threshold;
       threshold = 15;
     }
