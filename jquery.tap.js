@@ -46,7 +46,12 @@
           touching = false;
           if (moveDistance < threshold) {
             invalidateClicksBefore = Date.now() + INVALIDATE_CLICKS_AFTER_TAP_THRESHOLD;
-            callback.apply(self, [].slice.call(arguments));
+            var touch = e.touches[0];
+            e.pageX = touch.pageX;
+            e.pageY = touch.pageY;
+            e.clientX = touch.clientX;
+            e.clientY = touch.clientY;
+            callback.apply(self, arguments);
           } else {
             $self.trigger('tap-failed');
           }
