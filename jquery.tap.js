@@ -1,4 +1,5 @@
 ;(function($, undefined) {
+  var INVALIDATE_CLICKS_AFTER_TAP_THRESHOLD = 600;
   var incrementalElementId = 0;
   var mutex = 0;
   $.fn.tap = function(threshold, callback, touchOnly) {
@@ -16,6 +17,15 @@
         var touching = false;
         var self = this;
         var $self = $(this);
+        var invalidateClicksBefore = null;
+
+        $self.click(function() {
+          if (invalidateClicksBefore != null && Date.now() < invalidateClicksBefore) {
+            return;
+          } else {
+            callback.apply(self, arguments);
+          }
+        });
 
         $self.bind('touchstart', function(e) {
           if (mutex != 0) return;
@@ -35,6 +45,7 @@
           if (!touching) return;
           touching = false;
           if (moveDistance < threshold) {
+            invalidateClicksBefore = Date.now() + INVALIDATE_CLICKS_AFTER_TAP_THRESHOLD;
             callback.apply(self, [].slice.call(arguments));
           } else {
             $self.trigger('tap-failed');
