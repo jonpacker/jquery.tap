@@ -36,7 +36,14 @@
 
           if (e.originalEvent.touches && e.originalEvent.touches[0]) {
             touch = e.originalEvent.touches[0];
-            startPoint = { x: touch.screenX, y: touch.screenY }
+            startPoint = { 
+              x: touch.screenX, 
+              y: touch.screenY,
+              px: touch.pageX,
+              py: touch.pageY,
+              cx: touch.clientX,
+              cy: touch.clientY
+            }
           }
         });
 
@@ -46,11 +53,12 @@
           touching = false;
           if (moveDistance < threshold) {
             invalidateClicksBefore = Date.now() + INVALIDATE_CLICKS_AFTER_TAP_THRESHOLD;
-            var touch = e.touches[0];
-            e.pageX = touch.pageX;
-            e.pageY = touch.pageY;
-            e.clientX = touch.clientX;
-            e.clientY = touch.clientY;
+            e.pageX = startPoint.px;
+            e.pageY = startPoint.py;
+            e.clientX = startPoint.cx;
+            e.clientY = startPoint.cy;
+            e.screenX = startPoint.x;
+            e.scrrenY = startPoint.y;
             callback.apply(self, arguments);
           } else {
             $self.trigger('tap-failed');
