@@ -1,4 +1,4 @@
-;(function($, undefined) {
+;var jqt = function($, undefined) {
   var INVALIDATE_CLICKS_AFTER_TAP_THRESHOLD = 600;
   var incrementalElementId = 0;
   var mutex = 0;
@@ -93,4 +93,11 @@
     }
     return this;
   }
-})(window.jQuery || window.$);
+};
+if (module && module.exports) {
+  module.exports = function(jq) {
+    return jqt(jq || window.jQuery || window.$)
+  };
+} else {
+  jqt(window.jQuery || window.$)
+}
